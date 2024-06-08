@@ -15,7 +15,14 @@ const apiLimiter = (0, express_rate_limit_1.rateLimit)({
   windowMs: 60000,
   max: 60,
   handler(req, res) {
-    logger_1.logger.info(`rateLimit over (ip: ${getIp(req)})`);
+    // test
+    // logger_1.logger.info(`rateLimit over (ip: ${getIp(req)})`);
+    logger_1.logger.info(
+      `rateLimit over (ip: ${{
+        realIp: req.headers["x-real-ip"],
+        xForwardedFor: req.headers["x-forwarded-for"],
+      }})`
+    );
     res.send("단기간 내 너무 많은 데이터를 요청하여 1분 이후에 접속 바랍니다.");
   },
 });

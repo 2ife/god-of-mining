@@ -94,15 +94,15 @@
       <div id="minerGenerateBtnContainer">
         <div id="minerGeneraterByCash" class="minerGenerateBtnContainer_inputContainer">
           <label id="minerGeneraterByCash_amountLabel" class="minerGenerateBtnContainer_label">Lv1 채굴기 생성 (캐시)</label>
-          <input type="text" id="minerGeneraterByCash_amountInput" class="minerGenerateBtnContainer_input"
-            placeholder="수량 (개당 20캐시)">
+          <input type="number" inputmode="numeric" id="minerGeneraterByCash_amountInput"
+            class="minerGenerateBtnContainer_input" placeholder="수량 (개당 20캐시)">
           <button id="minerGeneraterByCash_minerGenerateBtn" class="minerGenerateBtnContainer_btn">생성</button>
 
         </div>
         <div id="minerGeneraterByCoin" class="minerGenerateBtnContainer_inputContainer">
           <label id="minerGeneraterByCoin_amountLabel" class="minerGenerateBtnContainer_label">Lv1 채굴기 생성 (코인)</label>
-          <input type="text" id="minerGeneraterByCoin_amountInput" class="minerGenerateBtnContainer_input"
-            placeholder="수량 (개당 4,0000코인)">
+          <input type="number" inputmode="numeric" id="minerGeneraterByCoin_amountInput"
+            class="minerGenerateBtnContainer_input" placeholder="수량 (개당 4,0000코인)">
           <button id="minerGeneraterByCoin_minerGenerateBtn" class="minerGenerateBtnContainer_btn">생성</button>
 
         </div>
@@ -170,14 +170,16 @@
           <div id="normalUpgradeContainer_explanation" class="minerUpgradeModal_explanation">50% → 성공 / 50% → 실패(파괴)
           </div>
           <label id="normalUpgradeContainer_amountLabel" class="minerUpgradeModal_smallLabel">수량</label>
-          <input type="text" id="normalUpgradeContainer_amountInput" class="minerUpgradeModal_input">
+          <input type="number" inputmode="numeric" id="normalUpgradeContainer_amountInput"
+            class="minerUpgradeModal_input">
           <button id="normalUpgradeContainer_upgradeBtn" class="minerUpgradeModal_btn">강화</button>
         </div>
         <div id="minerUpgradeModal_safeUpgradeContainer" class="minerUpgradeModal_upgradeContainer">
           <label id="safeUpgradeContainer_label" class="minerUpgradeModal_bigLabel">안전 강화 (채굴기 2개 소모)</label>
           <div id="safeUpgradeContainer_explanation" class="minerUpgradeModal_explanation">100% → 성공</div>
           <label id="safeUpgradeContainer_amountLabel" class="minerUpgradeModal_smallLabel">수량</label>
-          <input type="text" id="safeUpgradeContainer_amountInput" class="minerUpgradeModal_input">
+          <input type="number" inputmode="numeric" id="safeUpgradeContainer_amountInput"
+            class="minerUpgradeModal_input">
           <button id="safeUpgradeContainer_minerUpgradeBtn" class="minerUpgradeModal_btn">강화</button>
         </div>
       </div>
@@ -195,7 +197,7 @@
         </div>
         <div class="minerSendModal_inputContainer">
           <label id="minerSendModal_amountLabel" class="minerSendModal_label">수량</label>
-          <input type="text" id="minerSendModal_amountInput" class="minerSendModal_input">
+          <input type="number" inputmode="numeric" id="minerSendModal_amountInput" class="minerSendModal_input">
         </div>
         <button id="minerSendBtn">선물</button>
         <div id="minerSendModal_explanation">수수료: Lv1 채굴기 1개
