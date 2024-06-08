@@ -1,9 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const axios_1 = __importDefault(require("axios"));
+// var __importDefault = (this && this.__importDefault) || function (mod) {
+//     return (mod && mod.__esModule) ? mod : { "default": mod };
+// };
+// Object.defineProperty(exports, "__esModule", { value: true });
+// const axios = __importDefault(require("axios"));
 // html
 const loginContainer = document.querySelector("#loginContainer");
 const loginContainer_loginIdInput = loginContainer.querySelector("#loginContainer_loginIdInput");
@@ -203,7 +203,7 @@ const checkLoginCode = async () => {
             return;
         }
         showLoading();
-        const res = await axios_1.default.post("/auth/checkLoginCode", {
+        const res = await axios.default.post("/auth/checkLoginCode", {
             loginCode,
         });
         const { data } = res;
@@ -246,7 +246,7 @@ const login = async (event) => {
             return alertByModal(loginFailMessage);
         }
         showLoading();
-        const res = await axios_1.default.post("/auth/login", { loginId: id, password });
+        const res = await axios.default.post("/auth/login", { loginId: id, password });
         const { data } = res;
         const { answer, loginCode } = data;
         if (answer === "error") {
@@ -304,7 +304,7 @@ const join = async (event) => {
                 : ""}${!termsAgree ? "\n•약관 동의 필요" : ""}`);
         }
         showLoading();
-        const res = await axios_1.default.post("/auth/join", {
+        const res = await axios.default.post("/auth/join", {
             name,
             DOB,
             nick,
@@ -427,7 +427,7 @@ const generateMiner = async (type) => {
         }
         showLoading();
         const loginCode = localStorage.getItem("LOGIN_CODE");
-        const res = await axios_1.default.post("/miner/generateMiner", {
+        const res = await axios.default.post("/miner/generateMiner", {
             loginCode,
             type,
             amounts: generateAmounts,
@@ -472,7 +472,7 @@ const changeNick = async () => {
         }
         showLoading();
         const loginCode = localStorage.getItem("LOGIN_CODE");
-        const res = await axios_1.default.post("/auth/changeNick", {
+        const res = await axios.default.post("/auth/changeNick", {
             loginCode,
             newNick: nick,
         });
@@ -503,7 +503,7 @@ const changePassword = async () => {
         }
         showLoading();
         const loginCode = localStorage.getItem("LOGIN_CODE");
-        const res = await axios_1.default.post("/auth/changePassword", {
+        const res = await axios.default.post("/auth/changePassword", {
             loginCode,
             newPassword: password,
         });
@@ -531,7 +531,7 @@ const leave = async () => {
         }
         showLoading();
         const loginCode = localStorage.getItem("LOGIN_CODE");
-        const res = await axios_1.default.post("/auth/leave", {
+        const res = await axios.default.post("/auth/leave", {
             loginCode,
             password,
         });
@@ -578,7 +578,7 @@ const upgradeMiner = async (type) => {
         }
         showLoading();
         const loginCode = localStorage.getItem("LOGIN_CODE");
-        const res = await axios_1.default.post("/miner/upgradeMiner", {
+        const res = await axios.default.post("/miner/upgradeMiner", {
             loginCode,
             level: targetMiner.level,
             amounts: upgradeAmounts,
@@ -621,7 +621,7 @@ const sendMiner = async () => {
         }
         showLoading();
         const loginCode = localStorage.getItem("LOGIN_CODE");
-        const res = await axios_1.default.post("/miner/sendMiner", {
+        const res = await axios.default.post("/miner/sendMiner", {
             loginCode,
             level: targetMiner.level,
             amounts: sendAmounts,
