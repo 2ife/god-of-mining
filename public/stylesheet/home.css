@@ -1,0 +1,649 @@
+body {
+  width: 100dvw;
+  height: 200dvh;
+  -ms-overflow-style: none;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: black;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#gameZone {
+  position: fixed;
+  width: 50dvh;
+  height: 100dvh;
+  background-color: white;
+  font-size: 3dvh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width:50vh) {
+  #gameZone {
+    width: 100dvw;
+    height: 200dvw;
+    font-size: 6dvw;
+  }
+}
+
+#loginContainer {
+  width: 80%;
+  height: 25%;
+  border: 2px black solid;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.loginContainer_inputContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+  height: 25%;
+}
+
+.loginContainer_label {
+  width: 30%;
+  font-size: 85%;
+  font-weight: 900;
+}
+
+.loginContainer_input {
+  width: 60%;
+  height: 60%;
+  padding: 0 2.5%;
+  font-size: 80%;
+  border: 1px black solid;
+}
+
+.loginContainer_button {
+  width: 60%;
+  height: 20%;
+  margin: 1.5% 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 85%;
+  border: 1px black solid;
+}
+
+.loginContainer_button:active {
+  font-weight: 900;
+}
+
+#joinContainer {
+  width: 90%;
+  height: 90%;
+  border: 2px black solid;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.joinContainer_inputContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 98%;
+  height: 6%;
+}
+
+.joinContainer_label {
+  width: 37.5%;
+  font-size: 85%;
+  font-weight: 900;
+}
+
+.joinContainer_input {
+  width: 55%;
+  height: 60%;
+  padding: 0 2.5%;
+  font-size: 80%;
+  border: 1px black solid;
+}
+
+#joinContainer_explanation {
+  width: 95%;
+  height: 15%;
+  font-size: 75%;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#joinContainer_termsContainer {
+  width: 100%;
+  height: 28%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#joinContainer_termsContent {
+  width: 90%;
+  height: 80%;
+  border: 1px black solid;
+  font-size: 80%;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+#joinContainer_termsCheckbox {
+  width: 5%;
+  margin: 0 2.5%;
+}
+
+#joinContainer_termsCheckboxLabel {
+  font-size: 85%;
+}
+
+.joinContainer_button {
+  width: 60%;
+  height: 5.6%;
+  margin: 1.4% 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 85%;
+  border: 1px black solid;
+}
+
+.joinContainer_button:active {
+  font-weight: 900;
+}
+
+#gamePart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#menuBtnContainer {
+  width: 100%;
+  height: 7.5%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menuBtnContainer_button {
+  width: 40%;
+  height: 80%;
+  border: 1.5px black solid;
+  border-radius: 2.5%;
+  font-size: 80%;
+}
+
+.menuBtnContainer_button:active {
+  font-weight: 900;
+}
+
+#minersContainer {
+  width: 100%;
+  height: 65%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.minerContainer {
+  width: 15%;
+  height: 18%;
+  border: 1.5px black solid;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+}
+
+.minerLevelContainer {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 75%;
+  font-weight: 900;
+}
+
+.minerImg {
+  height: 50%;
+  border: 1px black solid;
+}
+
+.minerImg:active {
+  border-color: white;
+}
+
+.minerAmountContainer {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 75%;
+}
+
+.minerContainer_btnContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+}
+
+.minerUpgradeModalBtn,
+.minerSendModalBtn {
+  width: 90%;
+  height: 40%;
+  font-size: 80%;
+  border: 1px black solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.minerUpgradeModalBtn:active,
+.minerSendModalBtn:active {
+  font-weight: 900;
+}
+
+#minerGenerateBtnContainer {
+  width: 100%;
+  height: 12.5%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.minerGenerateBtnContainer_inputContainer {
+  width: 50%;
+  height: 90%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.minerGenerateBtnContainer_label {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 75%;
+  font-weight: 900;
+}
+
+.minerGenerateBtnContainer_input {
+  width: 90%;
+  height: 25%;
+  border: 1px black solid;
+  font-size: 70%;
+  text-align: center;
+}
+
+.minerGenerateBtnContainer_btn {
+  width: 85%;
+  height: 40%;
+  border: 1.5px black solid;
+  border-radius: 5%;
+  font-size: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.minerGenerateBtnContainer_btn:active {
+  font-weight: 900;
+}
+
+#minerGeneraterByCash {
+  border-right: 1px black solid;
+}
+
+#cashCoinContainer {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#cashContainer {
+  width: 60%;
+  height: 50%;
+  padding: 0 2.5%;
+  font-size: 90%;
+  font-weight: 900;
+}
+
+#cashChargeBtn {
+  width: 30%;
+  height: 40%;
+  border: 1.5px black solid;
+  font-size: 85%;
+}
+
+#cashChargeBtn:active {
+  font-weight: 900;
+}
+
+#coinContainer {
+  width: 95%;
+  height: 50%;
+  padding: 0 2.5%;
+  font-size: 90%;
+  font-weight: 900;
+  border-bottom: 2px black solid;
+}
+
+#minersPerformanceContainer {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 85%;
+  font-weight: 900;
+}
+
+.out_modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+}
+
+.modal_closeBtnContainer {
+  width: 100%;
+  height: 6.25%;
+  position: relative;
+  background-color: black;
+}
+
+.modal_closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12.5%;
+  height: 100%;
+  font-size: 90%;
+  font-weight: 900;
+  color: white;
+}
+
+.modal_closeBtn:active {
+  font-size: 80%;
+}
+
+.modal_contentContainer {
+  width: 100%;
+  height: 93.75%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.profileModal_inputContainer {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileModal_label {
+  width: 20%;
+  font-size: 75%;
+  font-weight: 900;
+}
+
+.profileModal_input {
+  width: 48%;
+  height: 40%;
+  padding: 0 1%;
+  margin: 0 2.5%;
+  border: 1px black solid;
+  font-size: 75%;
+}
+
+.profileModal_btn {
+  width: 22.5%;
+  height: 50%;
+  font-size: 70%;
+  border: 1px black solid;
+}
+
+.profileModal_btn:active {
+  font-weight: 900;
+}
+
+#profileModal_passwordContainer {
+  border-bottom: 1.5px black solid;
+}
+
+#leaveBtn {
+  width: 50%;
+  height: 5%;
+  border: 1.5px black solid;
+  border-radius: 2.5%;
+  font-size: 70%;
+  margin: 2.5% 0;
+}
+
+#leaveBtn:active {
+  font-weight: 900;
+}
+
+#profileModal_explanation {
+  width: 95%;
+  padding: 0 2.5%;
+  padding-top: 10%;
+  border-top: 2px black solid;
+  font-size: 80%;
+  font-weight: 900;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#sendLogList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: scroll;
+  font-size: 85%;
+  font-weight: 900;
+  line-height: 1.1;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#minerUpgradeModal_title,
+#minerSendModal_title {
+  width: 100%;
+  height: 7.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 90%;
+  font-weight: 900;
+  border-bottom: 1.5px black solid;
+}
+
+.minerUpgradeModal_upgradeContainer {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1.5px black solid;
+}
+
+.minerUpgradeModal_bigLabel {
+  width: 95%;
+  height: 20%;
+  margin: 0 2.5%;
+  font-size: 85%;
+  font-weight: 900;
+}
+
+.minerUpgradeModal_explanation {
+  width: 95%;
+  height: 20%;
+  margin: 0 2.5%;
+  font-size: 80%;
+  font-weight: 900;
+}
+
+.minerUpgradeModal_smallLabel {
+  width: 15%;
+  margin-left: 2.5%;
+  font-size: 75%;
+  font-weight: 900;
+}
+
+.minerUpgradeModal_input {
+  width: 45%;
+  height: 20%;
+  margin-right: 2.5%;
+  font-size: 80%;
+  font-weight: 900;
+  border: 1px black solid;
+  text-align: center;
+}
+
+.minerUpgradeModal_btn {
+  width: 30%;
+  height: 25%;
+  margin-right: 2.5%;
+  font-size: 80%;
+  border: 1.25px black solid;
+}
+
+.minerUpgradeModal_btn:active {
+  font-weight: 900;
+}
+
+.minerSendModal_inputContainer {
+  width: 95%;
+  height: 10%;
+  margin: 0 2.5%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.minerSendModal_label {
+  width: 20%;
+  font-size: 80%;
+  font-weight: 900;
+}
+
+.minerSendModal_input {
+  width: 75%;
+  height: 45%;
+  text-align: center;
+  border: 1px black solid;
+  font-size: 75%;
+}
+
+#minerSendBtn {
+  width: 60%;
+  height: 10%;
+  margin-top: 5%;
+  border: 1.5px black solid;
+  border-radius: 2.5%;
+  font-size: 90%;
+}
+
+#minerSendBtn:active {
+  font-weight: 900;
+}
+
+#minerSendModal_explanation {
+  width: 95%;
+  height: 25%;
+  padding: 0 2.5%;
+  border-bottom: 2px black solid;
+  font-size: 85%;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.2;
+}
+
+#alertModal,
+#loadingModal {
+  width: 95%;
+  justify-content: center;
+  font-size: 85%;
+  font-weight: 900;
+}
+
+#alertModal {
+  height: 45%;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#alertModal .modal_closeBtnContainer {
+  height: 10%;
+}
+
+#alertModal .modal_contentContainer {
+  height: 90%;
+  justify-content: center;
+  padding: 0 2.5%;
+  width: 95%;
+}
+
+#loadingModal {
+  height: 35%;
+  padding: 2.5%;
+}

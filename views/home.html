@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+  <title>채굴의 신</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheet/common.css?version=0.0.1">
+  <link rel="stylesheet" type="text/css" href="/stylesheet/home.css?version=0.0.1">
+  <link rel="apple-touch-icon" href="/images/mainImgIOS.png" />
+  <link rel="shortcut icon" href="/images/mainImgAndroid.png" />
+</head>
+
+<body>
+  <div id="gameZone">
+    <form id="loginContainer" style="display: none;">
+      <div id="loginContainer_loginIdContainer" class="loginContainer_inputContainer">
+        <label id="loginContainer_loginIdLabel" class="loginContainer_label">ID</label>
+        <input type="text" id="loginContainer_loginIdInput" class="loginContainer_input">
+      </div>
+      <div id="loginContainer_passwordContainer" class="loginContainer_inputContainer">
+        <label id="loginContainer_passwordLabel" class="loginContainer_label">비밀번호</label>
+        <input type="password" id="loginContainer_passwordInput" class="loginContainer_input">
+      </div>
+      <button id="loginBtn" class="loginContainer_button">로그인</button>
+      <button id="joinModeBtn" class="loginContainer_button">회원가입하기</button>
+    </form>
+    <form id="joinContainer" style="display: none;">
+      <div id="joinContainer_nameContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_nameLabel" class="joinContainer_label">이름(본명)</label>
+        <input type="text" id="joinContainer_nameInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_DOBContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_DOBLabel" class="joinContainer_label">생년월일</label>
+        <input type="text" id="joinContainer_DOBInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_nickContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_nickLabel" class="joinContainer_label">닉네임</label>
+        <input type="text" id="joinContainer_nickInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_loginIdContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_loginIdLabel" class="joinContainer_label">ID</label>
+        <input type="text" id="joinContainer_loginIdInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_passwordContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_passwordLabel" class="joinContainer_label">비밀번호</label>
+        <input type="password" id="joinContainer_passwordInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_passwordCheckContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_passwordCheckLabel" class="joinContainer_label">비밀번호 확인</label>
+        <input type="password" id="joinContainer_passwordCheckInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_emailContainer" class="joinContainer_inputContainer">
+        <label id="joinContainer_emailLabel" class="joinContainer_label">이메일</label>
+        <input type="text" id="joinContainer_emailInput" class="joinContainer_input">
+      </div>
+      <div id="joinContainer_explanation">
+        생년월일: 8자리(예. 19900101)
+        <br>닉네임: 영어 소문자, 한글, 숫자 (2~8자)
+        <br>ID: 영어 소문자, 숫자 (6~16자)
+        <br>비밀번호: 영어 대소문자, 숫자, 허용된 특수문자(!@#$%^&*()._-) (6~16자)
+      </div>
+      <div id="joinContainer_termsContainer">
+        <div id="joinContainer_termsContent">
+          현재는 게임 테스트 기간이지만, 게임이 정식 출시될 때, 테스트 기간 동안에 획득한 재화들을 인정받고 싶으신 경우, 꼭 모든 정보를 입력해주시길 바랍니다.
+        </div>
+        <input type="checkbox" id="joinContainer_termsCheckbox">
+        <div id="joinContainer_termsCheckboxLabel">약관에 동의합니다</div>
+      </div>
+      <button id="joinBtn" class="joinContainer_button">회원가입</button>
+      <button id="loginModeBtn" class="joinContainer_button">로그인하기</button>
+    </form>
+    <div id="gamePart" style="display: none;">
+      <div id="menuBtnContainer">
+        <button id="profileModalBtn" class="menuBtnContainer_button">프로필</button>
+        <button id="sendLogModalBtn" class="menuBtnContainer_button">선물 기록</button>
+      </div>
+      <div id="minersContainer">
+        {% for i in range(0,30) %}
+        <div class="minerContainer">
+          <span class="minerLevelContainer">Lv{{i+1}}</span>
+          <img src='/images/miner.png' class="minerImg">
+          <span class="minerAmountContainer">32</span>
+          <div class="minerContainer_btnContainer" style="display: none;">
+            {% if i === 29 %}
+            {% else %}
+            <button class="minerUpgradeModalBtn">강화</button>
+            {% endif %}
+            <button class="minerSendModalBtn">선물</button>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div id="minerGenerateBtnContainer">
+        <div id="minerGeneraterByCash" class="minerGenerateBtnContainer_inputContainer">
+          <label id="minerGeneraterByCash_amountLabel" class="minerGenerateBtnContainer_label">Lv1 채굴기 생성 (캐시)</label>
+          <input type="text" id="minerGeneraterByCash_amountInput" class="minerGenerateBtnContainer_input"
+            placeholder="수량 (개당 20캐시)">
+          <button id="minerGeneraterByCash_minerGenerateBtn" class="minerGenerateBtnContainer_btn">생성</button>
+
+        </div>
+        <div id="minerGeneraterByCoin" class="minerGenerateBtnContainer_inputContainer">
+          <label id="minerGeneraterByCoin_amountLabel" class="minerGenerateBtnContainer_label">Lv1 채굴기 생성 (코인)</label>
+          <input type="text" id="minerGeneraterByCoin_amountInput" class="minerGenerateBtnContainer_input"
+            placeholder="수량 (개당 4,0000코인)">
+          <button id="minerGeneraterByCoin_minerGenerateBtn" class="minerGenerateBtnContainer_btn">생성</button>
+
+        </div>
+      </div>
+      <div id="cashCoinContainer">
+        <div id="cashContainer"></div>
+        <button id="cashChargeBtn">충전</button>
+        <div id="coinContainer"></div>
+      </div>
+      <div id="minersPerformanceContainer">1일 채굴량: 1,000,000,000</div>
+    </div>
+    <div id="out_profileModal" class="out_modal" style="display: none;"></div>
+    <div id="profileModal" class="modal" style="display: none;">
+      <div class="modal_closeBtnContainer">
+        <button class="modal_closeBtn">✖</button>
+      </div>
+      <div class="modal_contentContainer">
+        <div id="profileModal_nickContainer" class="profileModal_inputContainer">
+          <label id="profileModal_nickLabel" class="profileModal_label">닉네임</label>
+          <input type="text" id="profileModal_nickInput" class="profileModal_input">
+          <button id="profileModal_nickChangeBtn" class="profileModal_btn">변경</button>
+        </div>
+        <div id="profileModal_loginIdContainer" class="profileModal_inputContainer">
+          <label id="profileModal_loginIdLabel" class="profileModal_label">ID</label>
+          <input type="text" id="profileModal_loginIdInput" class="profileModal_input" readonly>
+          <button id="logoutBtn" class="profileModal_btn">로그아웃</button>
+        </div>
+        <div id="profileModal_passwordContainer" class="profileModal_inputContainer">
+          <label id="profileModal_passwordLabel" class="profileModal_label">비밀번호</label>
+          <input type="text" id="profileModal_passwordInput" class="profileModal_input">
+          <button id="profileModal_passwordChangeBtn" class="profileModal_btn">변경</button>
+        </div>
+        <button id="leaveBtn">회원 탈퇴</button>
+        <div id="profileModal_explanation">
+          (채굴기 1개 코인 채굴량) = 2^(채굴기 단계 - 1)
+          <br>
+          (1일 채굴량) = 1 + (모든 채굴기 채굴량의 합)
+          <br>
+          <br>
+          &nbsp;문의는 2ife1601@gmail.com 로 메일 보내주시면(제목 형식: 본인 ID/문의 내용), 최대한 빠른 시일 내에 답변 및 문제 해결할 수 있도록 하겠습니다.
+        </div>
+      </div>
+    </div>
+    <div id="out_sendLogModal" class="out_modal" style="display: none;"></div>
+    <div id="sendLogModal" class="modal" style="display: none;">
+      <div class="modal_closeBtnContainer">
+        <button class="modal_closeBtn">✖</button>
+      </div>
+      <div class="modal_contentContainer">
+        <div id="sendLogList">
+          <br>
+          선물 기록
+        </div>
+      </div>
+    </div>
+    <div id="out_minerUpgradeModal" class="out_modal" style="display: none;"></div>
+    <div id="minerUpgradeModal" class="modal" style="display: none;">
+      <div class="modal_closeBtnContainer">
+        <button class="modal_closeBtn">✖</button>
+      </div>
+      <div class="modal_contentContainer">
+        <div id="minerUpgradeModal_title">Lv1 채굴기 강화</div>
+        <div id="minerUpgradeModal_normalUpgradeContainer" class="minerUpgradeModal_upgradeContainer">
+          <label id="normalUpgradeContainer_label" class="minerUpgradeModal_bigLabel">일반 강화 (채굴기 1개 소모)</label>
+          <div id="normalUpgradeContainer_explanation" class="minerUpgradeModal_explanation">50% → 성공 / 50% → 실패(파괴)
+          </div>
+          <label id="normalUpgradeContainer_amountLabel" class="minerUpgradeModal_smallLabel">수량</label>
+          <input type="text" id="normalUpgradeContainer_amountInput" class="minerUpgradeModal_input">
+          <button id="normalUpgradeContainer_upgradeBtn" class="minerUpgradeModal_btn">강화</button>
+        </div>
+        <div id="minerUpgradeModal_safeUpgradeContainer" class="minerUpgradeModal_upgradeContainer">
+          <label id="safeUpgradeContainer_label" class="minerUpgradeModal_bigLabel">안전 강화 (채굴기 2개 소모)</label>
+          <div id="safeUpgradeContainer_explanation" class="minerUpgradeModal_explanation">100% → 성공</div>
+          <label id="safeUpgradeContainer_amountLabel" class="minerUpgradeModal_smallLabel">수량</label>
+          <input type="text" id="safeUpgradeContainer_amountInput" class="minerUpgradeModal_input">
+          <button id="safeUpgradeContainer_minerUpgradeBtn" class="minerUpgradeModal_btn">강화</button>
+        </div>
+      </div>
+    </div>
+    <div id="out_minerSendModal" class="out_modal" style="display: none;"></div>
+    <div id="minerSendModal" class="modal" style="display: none;">
+      <div class="modal_closeBtnContainer">
+        <button class="modal_closeBtn">✖</button>
+      </div>
+      <div class="modal_contentContainer">
+        <div id="minerSendModal_title">Lv1 채굴기 선물</div>
+        <div class="minerSendModal_inputContainer">
+          <label id="minerSendModal_receiverLabel" class="minerSendModal_label">수령인</label>
+          <input type="text" id="minerSendModal_receiverInput" class="minerSendModal_input">
+        </div>
+        <div class="minerSendModal_inputContainer">
+          <label id="minerSendModal_amountLabel" class="minerSendModal_label">수량</label>
+          <input type="text" id="minerSendModal_amountInput" class="minerSendModal_input">
+        </div>
+        <button id="minerSendBtn">선물</button>
+        <div id="minerSendModal_explanation">수수료: Lv1 채굴기 1개
+          <br>
+          <br>
+          &nbsp;잘못된 수령인 작성으로 인한 피해는 보상받을 수 없으니, 수령인의 닉네임을 정확히 입력해주시길 바랍니다.
+        </div>
+      </div>
+    </div>
+    <div id="out_alertModal" class="out_modal" style="display: none;"></div>
+    <div id="alertModal" class="modal" style="display: none;">
+      <div class="modal_closeBtnContainer">
+        <button class="modal_closeBtn">✖</button>
+      </div>
+      <div class="modal_contentContainer"></div>
+    </div>
+    <div id="out_loadingModal" class="out_modal" style="display: none;"></div>
+    <div id="loadingModal" class="modal" style="display: none;">로딩 중.</div>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/scripts/home.js?version=0.0.1"></script>
+</body>
+
+</html>
