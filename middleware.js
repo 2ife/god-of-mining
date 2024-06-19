@@ -6,78 +6,72 @@ const index_1 = require("./models/index");
 const express_rate_limit_1 = require("express-rate-limit");
 const logger_1 = require("./logger");
 const getIp = (req) => {
-  return req.headers["x-forwarded-for"]
-    ? `${req.headers["x-forwarded-for"].split(",")[0]}`
-    : "X";
+    return req.headers["x-forwarded-for"]
+        ? `${req.headers["x-forwarded-for"].split(",")[0]}`
+        : "X";
 };
 const apiLimiter = (0, express_rate_limit_1.rateLimit)({
-  keyGenerator: getIp,
-  windowMs: 60000,
-  max: 60,
-  handler(req, res) {
-    // test
-    // logger_1.logger.info(`rateLimit over (ip: ${getIp(req)})`);
-    logger_1.logger.info(
-      `rateLimit over (ip: ${JSON.stringify({
-        realIp: req.headers["x-real-ip"],
-        xForwardedFor: req.headers["x-forwarded-for"],
-      })})`
-    );
-
-    res.send("단기간 내 너무 많은 데이터를 요청하여 1분 이후에 접속 바랍니다.");
-  },
+    keyGenerator: getIp,
+    windowMs: 60000,
+    max: 60,
+    handler(req, res) {
+        logger_1.logger.info(`rateLimit over (ip: ${getIp(req)})`);
+        res.send("단기간 내 너무 많은 데이터를 요청하여 1분 이후에 접속 바랍니다.");
+    },
 });
 exports.apiLimiter = apiLimiter;
 const isLoggedIn = async (req, res, next) => {
-  try {
-    const { loginCode } = req.body;
-    if (!loginCode) {
-      const errorObj = {
-        place: "middlewares-isLoggedIn",
-        content: "no loginCode!",
-      };
-      throw new common_1.ReqError(errorObj, errorObj.content);
+    try {
+        const { loginCode } = req.body;
+        if (!loginCode) {
+            const errorObj = {
+                place: "middlewares-isLoggedIn",
+                content: "no loginCode!",
+            };
+            throw new common_1.ReqError(errorObj, errorObj.content);
+        }
+        const user = await index_1.User.findOne({ where: { loginCode } });
+        if (!user) {
+            const errorObj = {
+                place: "middlewares-isLoggedIn",
+                content: "no user!",
+            };
+            throw new common_1.ReqError(errorObj, errorObj.content);
+        }
+        if (user.lockMemo) {
+            const errorObj = {
+                place: "middlewares-isLoggedIn",
+                content: "user locked!",
+                user: user.loginId,
+            };
+            throw new common_1.ReqError(errorObj, errorObj.content);
+        }
+        res.locals.user = user;
+        next();
     }
-    const user = await index_1.User.findOne({ where: { loginCode } });
-    if (!user) {
-      const errorObj = {
-        place: "middlewares-isLoggedIn",
-        content: "no user!",
-      };
-      throw new common_1.ReqError(errorObj, errorObj.content);
+    catch (err) {
+        next(err);
     }
-    if (user.lockMemo) {
-      const errorObj = {
-        place: "middlewares-isLoggedIn",
-        content: "user locked!",
-        user: user.loginId,
-      };
-      throw new common_1.ReqError(errorObj, errorObj.content);
-    }
-    res.locals.user = user;
-    next();
-  } catch (err) {
-    next(err);
-  }
 };
 exports.isLoggedIn = isLoggedIn;
 const isNotLoggedIn = async (req, res, next) => {
-  try {
-    const { loginCode } = req.body;
-    if (loginCode) {
-      const user = await index_1.User.findOne({ where: { loginCode } });
-      if (user) {
-        const errorObj = {
-          place: "middlewares-isNotLoggedIn",
-          content: `already loggedIn! user id: ${user.id}`,
-          user: user.loginId,
-        };
-        throw new common_1.ReqError(errorObj, errorObj.content);
-      }
+    try {
+        const { loginCode } = req.body;
+        if (loginCode) {
+            const user = await index_1.User.findOne({ where: { loginCode } });
+            if (user) {
+                const errorObj = {
+                    place: "middlewares-isNotLoggedIn",
+                    content: `already loggedIn! user id: ${user.id}`,
+                    user: user.loginId,
+                };
+                throw new common_1.ReqError(errorObj, errorObj.content);
+            }
+        }
+        next();
     }
-    next();
-  } catch (err) {
-    next(err);
-  }
+    catch (err) {
+        next(err);
+    }
 };
 exports.isNotLoggedIn = isNotLoggedIn;

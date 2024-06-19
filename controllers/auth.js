@@ -100,6 +100,7 @@ const checkLoginCode = async (req, res, next) => {
             newLoginCode,
             userData,
             sendLogsData,
+            mine,
         });
     }
     catch (err) {

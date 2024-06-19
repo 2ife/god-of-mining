@@ -228,11 +228,6 @@ body::-webkit-scrollbar {
 
 .minerImg {
   height: 50%;
-  border: 1px black solid;
-}
-
-.minerImg:active {
-  border-color: white;
 }
 
 .minerAmountContainer {
@@ -241,7 +236,7 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 75%;
+  font-size: 70%;
 }
 
 .minerContainer_btnContainer {

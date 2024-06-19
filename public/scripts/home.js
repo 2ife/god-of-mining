@@ -27,6 +27,7 @@ const profileModalBtn = menuBtnContainer.querySelector("#profileModalBtn");
 const sendLogModalBtn = menuBtnContainer.querySelector("#sendLogModalBtn");
 const minersContainer = gamePart.querySelector("#minersContainer");
 const minerContainers = minersContainer.querySelectorAll(".minerContainer");
+const minerImgs = minersContainer.querySelectorAll(".minerImg");
 const minerAmountContainers = minersContainer.querySelectorAll(".minerAmountContainer");
 const minerContainer_btnContainers = minersContainer.querySelectorAll(".minerContainer_btnContainer");
 const minerUpgradeModalBtns = minersContainer.querySelectorAll(".minerUpgradeModalBtn");
@@ -87,6 +88,7 @@ const LV1_MINER_CASH = 20;
 const LV1_MINER_COIN = 4000;
 let loadInterval = null;
 let reload = false;
+let minersWorkInterval = null;
 let user = {
     nick: "",
     loginId: "",
@@ -105,13 +107,26 @@ const updateUserProfile = (nick, loginId) => {
     profileModal_loginIdInput.value = loginId;
 };
 const updateMiners = (nextMinersArray, nextMinersTotalPerformance) => {
+    if (minersWorkInterval) {
+        clearInterval(minersWorkInterval);
+    }
     user.minersArray = nextMinersArray;
     user.minersTotalPerformance = nextMinersTotalPerformance;
     Array.from(nextMinersArray).forEach((amountStr, index) => {
         const minerAmounts = parseInt(amountStr, MINER_MAX_AMOUNTS + 1);
-        minerAmountContainers[index].innerText = `(${minerAmounts})`;
+        minerAmountContainers[index].innerText = `X${minerAmounts}`;
     });
     minersPerformanceContainer.innerText = `1일 채굴량: ${nextMinersTotalPerformance.toLocaleString("ko-KR")}`;
+    let i = 0;
+    minersWorkInterval = setInterval(() => {
+        Array.from(user.minersArray).forEach((amountStr, index) => {
+            const amounts = parseInt(amountStr, 33);
+            if (amounts) {
+                minerImgs[index].style.transform = `rotate( ${(10 * i) % 360}deg )`;
+            }
+        });
+        i++;
+    }, 100);
 };
 const changeCoin = (coinChange) => {
     user.coin += coinChange;
@@ -217,7 +232,7 @@ const checkLoginCode = async () => {
             loginContainer.style.display = "";
             return;
         }
-        const { newLoginCode, userData, sendLogsData } = data;
+        const { newLoginCode, userData, sendLogsData, mine } = data;
         localStorage.setItem("LOGIN_CODE", newLoginCode);
         updateUserProfile(userData.nick, userData.loginId);
         updateMiners(userData.minersArray, userData.minersTotalPerformance);
@@ -225,6 +240,9 @@ const checkLoginCode = async () => {
         changeCash(userData.cash);
         getSendLogs(sendLogsData);
         gamePart.style.display = "";
+        if (mine) {
+            alertByModal(`${user.minersTotalPerformance} 코인 채굴!`);
+        }
     }
     catch (err) {
         localStorage.removeItem("LOGIN_CODE");
@@ -717,7 +735,9 @@ minerSendModalBtns.forEach((minerSendModalBtn) => {
 minerGeneraterByCash_minerGenerateBtn.onclick = () => generateMiner("cash");
 minerGeneraterByCoin_minerGenerateBtn.onclick = () => generateMiner("coin");
 cashChargeBtn.onclick = () => {
-    alertByModal("입금 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, 010-4592-3497로 아래와 같이 문자 보내주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n문자 내용: 본인 ID/예금주명/입금 금액");
+    alertByModal("현재 테스트 기간으로 캐시 충전 불가"
+    // "입금 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, 010-4592-3497로 아래와 같이 문자 보내주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n문자 내용: 본인 ID/예금주명/입금 금액"
+    );
 };
 profileModal_closeBtn.onclick = () => openOrCloseModal("profile", "close");
 profileModal_nickChangeBtn.onclick = changeNick;

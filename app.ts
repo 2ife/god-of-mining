@@ -43,7 +43,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(
   express.static(
     path.join(__dirname, "public")
-    // , { maxAge: 2592000000 }
+    , { maxAge: 2592000000 }
   )
 );
 app.use(express.json());

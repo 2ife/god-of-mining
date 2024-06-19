@@ -96,6 +96,7 @@ const checkLoginCode: RequestHandler = async (req, res, next) => {
       newLoginCode,
       userData,
       sendLogsData,
+      mine,
     });
   } catch (err: any) {
     if (!err.place) {
