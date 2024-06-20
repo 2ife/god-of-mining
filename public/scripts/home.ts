@@ -268,6 +268,7 @@ const updateMiners = (
 ) => {
   if (minersWorkInterval) {
     clearInterval(minersWorkInterval);
+    minersWorkInterval = null;
   }
   user.minersArray = nextMinersArray;
   user.minersTotalPerformance = nextMinersTotalPerformance;
@@ -706,7 +707,9 @@ const changeNick = async () => {
         "닉네임은 영어 소문자, 한글, 숫자로 구성된 2~8자로만 변경 가능합니다."
       );
     }
-    const now = Date.now();
+    if (nick === user.nick) {
+      return alertByModal("현재 사용 중인 닉네임입니다.");
+    }
     if (sendLogs.length) {
       return alertByModal(
         "1주일 이내에 선물하거나 선물 받은 기록이 있으면, 닉네임 변경이 불가능합니다."

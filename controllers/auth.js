@@ -269,6 +269,14 @@ const changeNick = async (req, res, next) => {
             };
             throw new common_1.ReqError(errorObj, errorObj.content);
         }
+        if (newNick === user.nick) {
+            const errorObj = {
+                place: "controllers-auth-changeNick",
+                content: `try changing to original!`,
+                user: user.loginId,
+            };
+            throw new common_1.ReqError(errorObj, errorObj.content);
+        }
         const now = Date.now();
         const oneWeekAgo = new Date(now - 86400000 * 7);
         const sendLogWeekAgo = await models_1.SendLog.findOne({
