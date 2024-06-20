@@ -51,7 +51,7 @@ class User extends sequelize_1.Model {
             minersArray: {
                 type: sequelize_1.default.STRING(100),
                 allowNull: false,
-                defaultValue: "000000000000000000000000000000",
+                defaultValue: "00000000000000000000",
             },
             minersTotalPerformance: {
                 type: sequelize_1.default.BIGINT,

@@ -15,7 +15,7 @@ class ReqError extends Error {
   }
 }
 const MINER_MAX_AMOUNTS = 32;
-const MINER_MAX_LEVEL = 30;
+const MINER_MAX_LEVEL = 20;
 const LV1_MINER_CASH = 20;
 const LV1_MINER_COIN = 4000;
 const getMinersTotalPerformance = (minersArray: string) => {

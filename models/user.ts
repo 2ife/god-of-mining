@@ -50,7 +50,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
         minersArray: {
           type: Sequelize.STRING(100),
           allowNull: false,
-          defaultValue: "000000000000000000000000000000",
+          defaultValue: "00000000000000000000",
         },
         minersTotalPerformance: {
           type: Sequelize.BIGINT,

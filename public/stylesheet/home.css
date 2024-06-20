@@ -206,7 +206,7 @@ body::-webkit-scrollbar {
 }
 
 .minerContainer {
-  width: 15%;
+  width: 22.5%;
   height: 18%;
   border: 1.5px black solid;
   display: flex;
