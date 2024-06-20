@@ -3,19 +3,46 @@ import { ReqError } from "./controllers/common";
 import { User } from "./models/index";
 import { rateLimit } from "express-rate-limit";
 import { logger } from "./logger";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const getIp = (req: any): string => {
   return req.headers["x-forwarded-for"]
     ? `${req.headers["x-forwarded-for"].split(",")[0]}`
     : "X";
 };
+
+const getBannedIpArr = () => {
+  let bannedIpArrStr = process.env.BANNED_IP!;
+  bannedIpArrStr = bannedIpArrStr.replace(/[\[\]]/g, ""); // 대괄호 제거
+  const bannedIpArr = bannedIpArrStr.split(",").map((bannedIp) => {
+    return bannedIp.trim();
+  });
+  return bannedIpArr;
+};
+
+const checkIp: RequestHandler = async (req, res, next) => {
+  const ip = getIp(req);
+  if (ip === "X") {
+    return res.send("해당 ip에서는 접속이 불가합니다.");
+  }
+  const bannedIpArr = getBannedIpArr();
+  if (bannedIpArr.includes(ip)) {
+    return res.send(
+      `해당 ip는 과도한 요청으로 인해 현재 접속이 차단된 상태입니다. 문제 해결 희망 시, 2ife1601@gmail.com으로 문의 바랍니다. (문의 시, 해당 ip를 알려주시길 바랍니다. ip: ${ip})`
+    );
+  }
+  next();
+};
+
 const apiLimiter = rateLimit({
-  keyGenerator: getIp,
-  windowMs: 60000,
-  max: 60,
+  windowMs: 20000,
+  max: 20,
   handler(req, res) {
-    logger.info(`rateLimit over (ip: ${getIp(req)})`);
-    res.send("단기간 내 너무 많은 데이터를 요청하여 1분 이후에 접속 바랍니다.");
+    const ip = getIp(req);
+    logger.info(`rateLimit over (ip: ${ip})`);
+    res.send("단기간 내 너무 많은 데이터를 요청하여 잠시 후에 접속 바랍니다.");
   },
 });
 
@@ -72,4 +99,4 @@ const isNotLoggedIn: RequestHandler = async (req, res, next) => {
   }
 };
 
-export { apiLimiter, isLoggedIn, isNotLoggedIn };
+export { checkIp, apiLimiter, isLoggedIn, isNotLoggedIn };

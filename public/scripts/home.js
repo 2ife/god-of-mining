@@ -241,7 +241,7 @@ const checkLoginCode = async () => {
         getSendLogs(sendLogsData);
         gamePart.style.display = "";
         if (mine) {
-            alertByModal(`${user.minersTotalPerformance} 코인 채굴!`);
+            alertByModal(`${user.minersTotalPerformance.toLocaleString("ko-KR")} 코인 채굴!`);
         }
     }
     catch (err) {
@@ -736,7 +736,7 @@ minerGeneraterByCash_minerGenerateBtn.onclick = () => generateMiner("cash");
 minerGeneraterByCoin_minerGenerateBtn.onclick = () => generateMiner("coin");
 cashChargeBtn.onclick = () => {
     alertByModal("현재 테스트 기간으로 캐시 충전 불가"
-    // "입금 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, 010-4592-3497로 아래와 같이 문자 보내주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n문자 내용: 본인 ID/예금주명/입금 금액"
+    // "충전 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, 010-4592-3497로 아래와 같이 문자 보내주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n문자 내용: 본인 ID/예금주명/입금 금액"
     );
 };
 profileModal_closeBtn.onclick = () => openOrCloseModal("profile", "close");
