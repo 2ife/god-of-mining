@@ -23,18 +23,17 @@ function validateXForwardedFor(header) {
 }
 const getIp = (req) => {
   let ip = "X";
+  const xForwardedFor = req.headers["x-forwarded-for"];
+  console.log("xForwardedFor", xForwardedFor);
   if (process.env.DB_HOST === "127.0.0.1") {
     ip = "O";
   } else {
-    const xForwardedFor = req.headers["x-forwarded-for"];
     if (
       xForwardedFor &&
       typeof xForwardedFor === "string" &&
       validateXForwardedFor(xForwardedFor)
     ) {
       ip = xForwardedFor.split(",")[0];
-    } else {
-      console.log("xForwardedFor", xForwardedFor);
     }
   }
   return ip;
