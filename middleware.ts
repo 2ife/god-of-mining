@@ -10,6 +10,8 @@ dotenv.config();
 const getIp = (req: any): string => {
   return req.headers["x-forwarded-for"]
     ? `${req.headers["x-forwarded-for"].split(",")[0]}`
+    : process.env.DB_HOST === '127.0.0.1'
+    ? "O"
     : "X";
 };
 
