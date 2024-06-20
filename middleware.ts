@@ -7,12 +7,27 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+function validateXForwardedFor(header: string) {
+  // IP 주소 형식 검증 로직 추가
+  const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+  return ipRegex.test(header.split(",")[0].trim());
+}
+
 const getIp = (req: any): string => {
-  return req.headers["x-forwarded-for"]
-    ? `${req.headers["x-forwarded-for"].split(",")[0]}`
-    : process.env.DB_HOST === '127.0.0.1'
-    ? "O"
-    : "X";
+  let ip = "X";
+  if (process.env.DB_HOST === "127.0.0.1") {
+    ip = "O";
+  } else {
+    const xForwardedFor = req.headers["x-forwarded-for"];
+    if (
+      xForwardedFor &&
+      typeof xForwardedFor === "string" &&
+      validateXForwardedFor(xForwardedFor)
+    ) {
+      ip = xForwardedFor.split(",")[0];
+    }
+  }
+  return ip;
 };
 
 const getBannedIpArr = () => {
