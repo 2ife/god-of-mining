@@ -623,8 +623,6 @@ body::-webkit-scrollbar {
 
 #alertModal {
   height: 45%;
-  user-select: text;
-  -webkit-user-select: text;
 }
 
 #alertModal .modal_closeBtnContainer {
@@ -636,6 +634,8 @@ body::-webkit-scrollbar {
   justify-content: center;
   padding: 0 2.5%;
   width: 95%;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 #loadingModal {
