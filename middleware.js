@@ -37,7 +37,7 @@ const checkIp = async (req, res, next) => {
         return res.send("해당 ip에서는 접속이 불가합니다.");
     }
     if (bannedIp_1.bannedIp.includes(ip)) {
-        return res.send(`해당 ip는 과도한 요청으로 인해 현재 접속이 차단된 상태입니다. 문제 해결 희망 시, 2ife1601@gmail.com으로 문의 바랍니다. (문의 시, 해당 ip를 알려주시길 바랍니다. ip: ${ip})`);
+        return res.send(`해당 ip는 과도한 요청으로 인해 현재 접속이 차단된 상태입니다. 문제 해결 희망 시, https://open.kakao.com/o/shwA46yg 으로 문의 바랍니다. (문의 시, 해당 ip를 알려주시길 바랍니다. ip: ${ip})`);
     }
     next();
 };
