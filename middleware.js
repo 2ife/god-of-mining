@@ -8,6 +8,7 @@ const common_1 = require("./controllers/common");
 const index_1 = require("./models/index");
 const express_rate_limit_1 = require("express-rate-limit");
 const logger_1 = require("./logger");
+const bannedIp_1 = require("./bannedIp");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 function validateXForwardedFor(header) {
@@ -30,21 +31,12 @@ const getIp = (req) => {
     }
     return ip;
 };
-const getBannedIpArr = () => {
-    let bannedIpArrStr = process.env.BANNED_IP;
-    bannedIpArrStr = bannedIpArrStr.replace(/[\[\]]/g, ""); // 대괄호 제거
-    const bannedIpArr = bannedIpArrStr.split(",").map((bannedIp) => {
-        return bannedIp.trim();
-    });
-    return bannedIpArr;
-};
 const checkIp = async (req, res, next) => {
     const ip = getIp(req);
     if (ip === "X") {
         return res.send("해당 ip에서는 접속이 불가합니다.");
     }
-    const bannedIpArr = getBannedIpArr();
-    if (bannedIpArr.includes(ip)) {
+    if (bannedIp_1.bannedIp.includes(ip)) {
         return res.send(`해당 ip는 과도한 요청으로 인해 현재 접속이 차단된 상태입니다. 문제 해결 희망 시, 2ife1601@gmail.com으로 문의 바랍니다. (문의 시, 해당 ip를 알려주시길 바랍니다. ip: ${ip})`);
     }
     next();
