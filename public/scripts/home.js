@@ -127,7 +127,7 @@ const updateMiners = (nextMinersArray, nextMinersTotalPerformance) => {
             }
         });
         i++;
-    }, 100);
+    }, 50);
 };
 const changeCoin = (coinChange) => {
     user.coin += coinChange;
@@ -276,7 +276,7 @@ const login = async (event) => {
             alertByModal(loginFailMessage);
         }
         else if (answer === "lock") {
-            alertByModal("정지된 ID입니다!");
+            alertByModal("정지된 ID입니다! 정지 사유에 대한 문의는 2ife1601@gmail.com으로 (본인 ID) / 정지 사유 문의 라고 문의 주시길 바랍니다.");
         }
         if (loginCode) {
             localStorage.setItem("LOGIN_CODE", loginCode);
