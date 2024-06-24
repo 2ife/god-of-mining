@@ -276,7 +276,7 @@ const login = async (event) => {
             alertByModal(loginFailMessage);
         }
         else if (answer === "lock") {
-            alertByModal("정지된 ID입니다! 정지 사유에 대한 문의는 https://open.kakao.com/o/shwA46yg 으로 (본인 ID) / 정지 사유 문의 라고 문의 주시길 바랍니다.");
+            alertByModal("정지된 ID입니다! 정지 사유에 대한 문의는 https://open.kakao.com/me/godofmining 으로 (본인 ID) / 정지 사유 문의 라고 문의 주시길 바랍니다.");
         }
         if (loginCode) {
             localStorage.setItem("LOGIN_CODE", loginCode);
@@ -739,7 +739,7 @@ minerGeneraterByCash_minerGenerateBtn.onclick = () => generateMiner("cash");
 minerGeneraterByCoin_minerGenerateBtn.onclick = () => generateMiner("coin");
 cashChargeBtn.onclick = () => {
     alertByModal("현재 테스트 기간으로 캐시 충전 불가"
-    // "충전 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, https://open.kakao.com/o/shwA46yg 로 아래와 같이 연락주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n내용: 본인 ID/예금주명/입금 금액"
+    // "충전 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, https://open.kakao.com/me/godofmining 로 아래와 같이 연락주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n내용: 본인 ID/예금주명/입금 금액"
     );
 };
 profileModal_closeBtn.onclick = () => openOrCloseModal("profile", "close");
