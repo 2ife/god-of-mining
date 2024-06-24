@@ -636,6 +636,7 @@ body::-webkit-scrollbar {
   width: 95%;
   user-select: text;
   -webkit-user-select: text;
+  font-size: 85%;
 }
 
 #loadingModal {
