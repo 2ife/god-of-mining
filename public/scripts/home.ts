@@ -145,6 +145,9 @@ const profileModal_passwordChangeBtn = profileModal.querySelector(
   "#profileModal_passwordChangeBtn"
 ) as HTMLButtonElement;
 const leaveBtn = profileModal.querySelector("#leaveBtn") as HTMLButtonElement;
+const tutorialLink = profileModal.querySelector(
+  "#tutorialLink"
+) as HTMLAnchorElement;
 
 const out_sendLogModal = document.querySelector(
   "#out_sendLogModal"
@@ -535,6 +538,7 @@ const join = async (event: MouseEvent) => {
     }
     stopLoading();
     if (answer === "join success") {
+      tutorialLink.click();
       loginContainer_loginIdInput.value = id;
       loginContainer_passwordInput.value = password;
       loginBtn.click();

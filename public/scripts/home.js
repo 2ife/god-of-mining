@@ -53,6 +53,7 @@ const logoutBtn = profileModal.querySelector("#logoutBtn");
 const profileModal_passwordInput = profileModal.querySelector("#profileModal_passwordInput");
 const profileModal_passwordChangeBtn = profileModal.querySelector("#profileModal_passwordChangeBtn");
 const leaveBtn = profileModal.querySelector("#leaveBtn");
+const tutorialLink = profileModal.querySelector("#tutorialLink");
 const out_sendLogModal = document.querySelector("#out_sendLogModal");
 const sendLogModal = document.querySelector("#sendLogModal");
 const sendLogModal_closeBtn = sendLogModal.querySelector(".modal_closeBtn");
@@ -338,6 +339,7 @@ const join = async (event) => {
         }
         stopLoading();
         if (answer === "join success") {
+            tutorialLink.click();
             loginContainer_loginIdInput.value = id;
             loginContainer_passwordInput.value = password;
             loginBtn.click();

@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
   <title>채굴의 신</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheet/common.css?version=0.0.8">
-  <link rel="stylesheet" type="text/css" href="/stylesheet/home.css?version=0.0.8">
+  <link rel="stylesheet" type="text/css" href="/stylesheet/common.css?version=0.0.9">
+  <link rel="stylesheet" type="text/css" href="/stylesheet/home.css?version=0.0.9">
   <link rel="apple-touch-icon" href="/images/mainImgIOS.png" />
   <link rel="shortcut icon" href="/images/mainImgAndroid.png" />
 </head>
@@ -138,18 +138,13 @@
         </div>
         <button id="leaveBtn">회원 탈퇴</button>
         <div id="profileModal_explanation">
-          &nbsp;(채굴기 코인 채굴량) = 2^(채굴기 단계 - 1)
-          <br>
-          &nbsp;(1일 채굴량) = 1 + (모든 채굴기 채굴량의 합)
-          <br>
-          <br>
           &nbsp;<a href="https://cafe.naver.com/godofmining" target="_blank">공식카페</a>
           <br>
           <br>
           &nbsp;<a href="https://cafe.naver.com/godofmining/3" target="_blank">문의</a>
           <br>
           <br>
-          &nbsp;<a href="https://cafe.naver.com/godofmining/2" target="_blank">기본 공략</a>
+          &nbsp;<a href="https://cafe.naver.com/godofmining/2" target="_blank" id="tutorialLink">튜토리얼</a>
         </div>
       </div>
     </div>
@@ -225,7 +220,7 @@
     <div id="loadingModal" class="modal" style="display: none;">로딩 중.</div>
   </div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/scripts/home.js?version=0.0.8"></script>
+  <script src="/scripts/home.js?version=0.0.9"></script>
 </body>
 
 </html>
