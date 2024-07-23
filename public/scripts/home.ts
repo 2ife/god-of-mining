@@ -549,7 +549,6 @@ const join = async (event: MouseEvent) => {
     }
     stopLoading();
     if (answer === "join success") {
-      tutorialLink.click();
       loginContainer_loginIdInput.value = id;
       loginContainer_passwordInput.value = password;
       loginBtn.click();
