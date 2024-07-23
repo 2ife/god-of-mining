@@ -206,7 +206,7 @@ body::-webkit-scrollbar {
 }
 
 .minerContainer {
-  width: 22.5%;
+  width: 23.4%;
   height: 18%;
   border: 1.5px black solid;
   display: flex;
@@ -216,7 +216,7 @@ body::-webkit-scrollbar {
   position: relative;
 }
 
-.minerLevelContainer {
+/* .minerLevelContainer {
   width: 100%;
   height: 25%;
   display: flex;
@@ -224,19 +224,46 @@ body::-webkit-scrollbar {
   align-items: center;
   font-size: 75%;
   font-weight: 900;
-}
+} */
 
 .minerImg {
-  height: 50%;
+  height: 100%;
+}
+
+.minerCore {
+  position: absolute;
+  bottom: 8%;
+  left: 42%;
+  width: 16%;
+  height: 16%;
+  border-radius: 50%;
+  animation: minerCore 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+@keyframes minerCore {
+
+  0%,100%{
+    transform: scale(0.8);
+  }
+
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+
 }
 
 .minerAmountContainer {
-  width: 100%;
-  height: 25%;
+  /* width: 100%;
+  height: 20%; */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 70%;
+  position: absolute;
+  top: 2%;
+  right: 2%;
 }
 
 .minerContainer_btnContainer {
@@ -605,7 +632,7 @@ body::-webkit-scrollbar {
   height: 25%;
   padding: 0 2.5%;
   border-bottom: 2px black solid;
-  font-size: 85%;
+  font-size: 75%;
   font-weight: 900;
   display: flex;
   justify-content: center;

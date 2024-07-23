@@ -68,6 +68,9 @@ const minerContainers = minersContainer.querySelectorAll(
 const minerImgs = minersContainer.querySelectorAll(
   ".minerImg"
 ) as NodeListOf<HTMLImageElement>;
+const minerCores = minersContainer.querySelectorAll(
+  ".minerCore"
+) as NodeListOf<HTMLDivElement>;
 const minerAmountContainers = minersContainer.querySelectorAll(
   ".minerAmountContainer"
 ) as NodeListOf<HTMLDivElement>;
@@ -239,7 +242,7 @@ const LV1_MINER_CASH = 20;
 const LV1_MINER_COIN = 4000;
 let loadInterval: any = null;
 let reload = false;
-let minersWorkInterval: any = null;
+// let minersWorkInterval: any = null;
 let user = {
   nick: "",
   loginId: "",
@@ -269,39 +272,47 @@ const updateMiners = (
   nextMinersArray: string,
   nextMinersTotalPerformance: number
 ) => {
-  if (minersWorkInterval) {
-    clearInterval(minersWorkInterval);
-    minersWorkInterval = null;
-  }
+  // if (minersWorkInterval) {
+  //   clearInterval(minersWorkInterval);
+  //   minersWorkInterval = null;
+  // }
   user.minersArray = nextMinersArray;
   user.minersTotalPerformance = nextMinersTotalPerformance;
   Array.from(nextMinersArray).forEach((amountStr, index) => {
     const minerAmounts = parseInt(amountStr, MINER_MAX_AMOUNTS + 1);
-    minerAmountContainers[index].innerText = `X${minerAmounts}`;
+    minerAmountContainers[index].innerText = `${minerAmounts}`;
+    if (minerAmounts) {
+      minerCores[index].style.backgroundColor = `rgb(${
+        190 - index * 10
+      },255,255)`;
+    } else {
+      minerCores[index].style.backgroundColor = "rgba(0,0,0,0)";
+    }
   });
-  minersPerformanceContainer.innerText = `1일 채굴량: ${nextMinersTotalPerformance.toLocaleString(
+  minersPerformanceContainer.innerText = `출석 보상 (${nextMinersTotalPerformance.toLocaleString(
     "ko-KR"
-  )}`;
-  let i = 0;
-  minersWorkInterval = setInterval(() => {
-    Array.from(user.minersArray).forEach((amountStr, index) => {
-      const amounts = parseInt(amountStr, 33);
-      if (amounts) {
-        minerImgs[index].style.transform = `rotate( ${(10 * i) % 360}deg )`;
-      }
-    });
-    i++;
-  }, 50);
+  )}◇)`;
+
+  // let i = 0;
+  // minersWorkInterval = setInterval(() => {
+  //   Array.from(user.minersArray).forEach((amountStr, index) => {
+  //     const amounts = parseInt(amountStr, 33);
+  //     if (amounts) {
+  //       minerImgs[index].style.transform = `rotate( ${(10 * i) % 360}deg )`;
+  //     }
+  //   });
+  //   i++;
+  // }, 50);
 };
 
 const changeCoin = (coinChange: number) => {
   user.coin += coinChange;
-  coinContainer.innerText = `코인: ${user.coin.toLocaleString("ko-KR")}`;
+  coinContainer.innerText = `◇ ${user.coin.toLocaleString("ko-KR")}`;
 };
 
 const changeCash = (cashChange: number) => {
   user.cash += cashChange;
-  cashContainer.innerText = `캐시: ${user.cash.toLocaleString("ko-KR")}`;
+  cashContainer.innerText = `◆ ${user.cash.toLocaleString("ko-KR")}`;
 };
 
 const getSendLogs = (
@@ -316,7 +327,7 @@ const getSendLogs = (
   sendLogs = nextSendLogs;
   nextSendLogs.forEach((log) => {
     const { sender, receiver, minerLevel, minerAmounts, time } = log;
-    sendLogList.innerHTML += `<br><br>발송인: ${sender}<br>수령인: ${receiver}<br>채굴기 레벨: ${minerLevel}<br>채굴기 수량: ${minerAmounts}<br>${new Date(
+    sendLogList.innerHTML += `<br><br>발송인: ${sender}<br>수령인: ${receiver}<br>창조자 레벨: ${minerLevel}<br>창조자 수량: ${minerAmounts}<br>${new Date(
       time
     ).toLocaleString("ko-KR")}`;
   });
@@ -326,21 +337,21 @@ const setTargetMiner = (index: number) => {
   const minerAmounts = parseInt(user.minersArray[index], MINER_MAX_AMOUNTS + 1);
   targetMiner.level = minerLevel;
   targetMiner.amounts = minerAmounts;
-  minerUpgradeModal_title.innerText = `LV${minerLevel} 채굴기 강화`;
+  minerUpgradeModal_title.innerText = `LV${minerLevel} 창조자 진화`;
   normalUpgradeContainer_amountInput.placeholder = !minerAmounts
-    ? "채굴기 없음"
+    ? "창조자 없음"
     : minerAmounts === 1
     ? "1"
     : `1~${minerAmounts}`;
   safeUpgradeContainer_amountInput.placeholder =
     minerAmounts < 2
-      ? "채굴기 부족"
+      ? "창조자 부족"
       : minerAmounts === 2
       ? "1"
       : `1~${Math.floor(minerAmounts / 2)}`;
-  minerSendModal_title.innerText = `LV${minerLevel} 채굴기 선물`;
+  minerSendModal_title.innerText = `LV${minerLevel} 창조자 워프`;
   minerSendModal_amountInput.placeholder = !minerAmounts
-    ? "채굴기 없음"
+    ? "창조자 없음"
     : minerAmounts === 1
     ? "1"
     : `1~${minerAmounts}`;
@@ -427,7 +438,7 @@ const checkLoginCode = async () => {
     gamePart.style.display = "";
     if (mine) {
       alertByModal(
-        `${user.minersTotalPerformance.toLocaleString("ko-KR")} 코인 채굴!`
+        `${user.minersTotalPerformance.toLocaleString("ko-KR")}◇ 획득!`
       );
     }
   } catch (err) {
@@ -642,7 +653,7 @@ const generateMiner = async (type: "cash" | "coin") => {
     );
     if (lv1MinerAmounts === 32) {
       return alertByModal(
-        "각 단계별 채굴기는 최대 32개까지만 보유 가능합니다."
+        "각 단계별 창조자는 최대 32기까지만 보유 가능합니다."
       );
     }
     const generateAmounts = Number(amountInput.value);
@@ -652,23 +663,23 @@ const generateMiner = async (type: "cash" | "coin") => {
       generateAmounts > 32 - lv1MinerAmounts
     ) {
       return alertByModal(
-        `현재 Lv1 채굴기 생성 가능 개수: 1~${32 - lv1MinerAmounts}`
+        `현재 Lv1 창조자 소환 가능: 1~${32 - lv1MinerAmounts}`
       );
     }
     if (type === "cash" && user.cash < generateAmounts * LV1_MINER_CASH) {
       return alertByModal(
-        `캐시가 부족합니다. (필요 캐시: ${(
-          generateAmounts * LV1_MINER_CASH
-        ).toLocaleString("ko-KR")})`
+        `◆ 부족! (필요 ◆: ${(generateAmounts * LV1_MINER_CASH).toLocaleString(
+          "ko-KR"
+        )})`
       );
     } else if (
       type === "coin" &&
       user.coin < generateAmounts * LV1_MINER_COIN
     ) {
       return alertByModal(
-        `코인이 부족합니다. (필요 코인: ${(
-          generateAmounts * LV1_MINER_COIN
-        ).toLocaleString("ko-KR")})`
+        `◇ 부족! (필요 ◇: ${(generateAmounts * LV1_MINER_COIN).toLocaleString(
+          "ko-KR"
+        )})`
       );
     }
     showLoading();
@@ -696,7 +707,7 @@ const generateMiner = async (type: "cash" | "coin") => {
       }
     }
     amountInput.value = "";
-    alertByModal(`Lv1 채굴기 ${generateAmounts}개 생성 완료`);
+    alertByModal(`Lv1 창조자 ${generateAmounts}기 소환 완료`);
   } catch (err) {
     processError();
   }
@@ -718,7 +729,7 @@ const changeNick = async () => {
     }
     if (sendLogs.length) {
       return alertByModal(
-        "1주일 이내에 선물하거나 선물 받은 기록이 있으면, 닉네임 변경이 불가능합니다."
+        "1주일 이내에 워프하거나 워프 받은 기록이 있으면, 닉네임 변경이 불가능합니다."
       );
     }
     showLoading();
@@ -813,7 +824,7 @@ const upgradeMiner = async (type: "normal" | "safe") => {
       maxAmounts = Math.floor(targetMiner.amounts / 2);
     }
     if (!maxAmounts) {
-      return alertByModal("채굴기 부족");
+      return alertByModal("창조자 부족");
     }
     const upgradeAmounts = Number(amountInput.value);
     const nextLvMinerAmounts = parseInt(
@@ -831,7 +842,7 @@ const upgradeMiner = async (type: "normal" | "safe") => {
           upgradeAmounts + nextLvMinerAmounts > MINER_MAX_AMOUNTS
             ? MINER_MAX_AMOUNTS - nextLvMinerAmounts
             : maxAmounts
-        }개 강화 가능`
+        }기 진화 가능`
       );
     }
 
@@ -857,7 +868,7 @@ const upgradeMiner = async (type: "normal" | "safe") => {
     stopLoading();
     updateMiners(nextMinersArray, nextMinersTotalPerformance);
     minerUpgradeModal_closeBtn.click();
-    alertByModal(`채굴기 강화\n\n성공: ${success}\n실패: ${fail}`);
+    alertByModal(`창조자 진화\n\n성공: ${success}\n실패: ${fail}`);
   } catch (err) {
     processError();
   }
@@ -877,7 +888,7 @@ const sendMiner = async () => {
       MINER_MAX_AMOUNTS + 1
     );
     if (!lv1MinerAmounts) {
-      return alertByModal("Lv1 채굴기 1개 필요 (수수료)");
+      return alertByModal("Lv1 창조자 1기 필요");
     }
     const sendAmounts = Number(minerSendModal_amountInput.value);
     const maxAmounts =
@@ -887,7 +898,7 @@ const sendMiner = async () => {
       sendAmounts < 1 ||
       sendAmounts > maxAmounts
     ) {
-      return alertByModal(`최대 ${maxAmounts}개 선물 가능`);
+      return alertByModal(`최대 ${maxAmounts}기 워프 가능`);
     }
 
     showLoading();
@@ -914,7 +925,7 @@ const sendMiner = async () => {
     }
     if (receiver_max === 0 || receiver_max) {
       return alertByModal(
-        `현재 해당 유저에게 LV${targetMiner.level} 채굴기는 최대 ${receiver_max}개까지만 선물 가능합니다.`
+        `현재 해당 유저에게 LV${targetMiner.level} 창조자는 최대 ${receiver_max}기까지만 워프 가능합니다.`
       );
     }
     const now = Date.now();
@@ -927,17 +938,17 @@ const sendMiner = async () => {
     });
     sendLogList.innerHTML = `${sendLogList.innerHTML.slice(
       0,
-      sendLogList.innerHTML.indexOf("선물 기록\n") + 6
-    )}<br><br>발송인: ${user.nick}<br>수령인: ${receiverNick}<br>채굴기 단계: ${
+      sendLogList.innerHTML.indexOf("워프 기록\n") + 6
+    )}<br><br>발송인: ${user.nick}<br>수령인: ${receiverNick}<br>창조자 단계: ${
       targetMiner.level
-    }<br>채굴기 수량: ${sendAmounts}<br>${new Date(now).toLocaleString(
+    }<br>창조자 수량: ${sendAmounts}<br>${new Date(now).toLocaleString(
       "ko-KR"
     )}${sendLogList.innerHTML.slice(
-      sendLogList.innerHTML.indexOf("선물 기록\n") + 6
+      sendLogList.innerHTML.indexOf("워프 기록\n") + 6
     )}`;
     updateMiners(nextMinersArray, nextMinersTotalPerformance);
     minerSendModal_closeBtn.click();
-    alertByModal("채굴기 선물 완료!");
+    alertByModal("창조자 워프 완료!");
   } catch (err) {
     processError();
   }
@@ -1014,8 +1025,8 @@ minerGeneraterByCash_minerGenerateBtn.onclick = () => generateMiner("cash");
 minerGeneraterByCoin_minerGenerateBtn.onclick = () => generateMiner("coin");
 cashChargeBtn.onclick = () => {
   alertByModal(
-    "현재 테스트 기간으로 캐시 충전 불가"
-    // "충전 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, https://open.kakao.com/me/godofmining 로 아래와 같이 연락주시면 확인 후, 입금 금액만큼 캐시가 충전됩니다.\n\n내용: 본인 ID/예금주명/입금 금액"
+    "현재 테스트 기간으로 ◆ 충전 불가"
+    // "충전 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, https://open.kakao.com/me/godofmining 로 아래와 같이 연락주시면 확인 후, 입금 금액만큼 ◆가 충전됩니다.\n\n내용: 본인 ID/예금주명/입금 금액"
   );
 };
 

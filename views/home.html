@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
-  <title>채굴의 신</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheet/common.css?version=0.0.9">
-  <link rel="stylesheet" type="text/css" href="/stylesheet/home.css?version=0.0.9">
+  <title>작은 창조자</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheet/common.css?version=0.0.10">
+  <link rel="stylesheet" type="text/css" href="/stylesheet/home.css?version=0.0.10">
   <link rel="apple-touch-icon" href="/images/mainImgIOS.png" />
   <link rel="shortcut icon" href="/images/mainImgAndroid.png" />
 </head>
@@ -74,37 +74,38 @@
     <div id="gamePart" style="display: none;">
       <div id="menuBtnContainer">
         <button id="profileModalBtn" class="menuBtnContainer_button">프로필</button>
-        <button id="sendLogModalBtn" class="menuBtnContainer_button">선물 기록</button>
+        <button id="sendLogModalBtn" class="menuBtnContainer_button">워프 기록</button>
       </div>
       <div id="minersContainer">
         {% for i in range(0,20) %}
         <div class="minerContainer">
-          <span class="minerLevelContainer">Lv{{i+1}}</span>
-          <img src='/images/miner.png' class="minerImg">
+          <!-- <span class="minerLevelContainer">Lv{{i+1}}</span> -->
+          <img src='/images/creator{{i+1}}.png' class="minerImg">
+          <div class="minerCore"></div>
           <span class="minerAmountContainer"></span>
           <div class="minerContainer_btnContainer" style="display: none;">
             {% if i === 19 %}
             {% else %}
-            <button class="minerUpgradeModalBtn">강화</button>
+            <button class="minerUpgradeModalBtn">진화</button>
             {% endif %}
-            <button class="minerSendModalBtn">선물</button>
+            <button class="minerSendModalBtn">워프</button>
           </div>
         </div>
         {% endfor %}
       </div>
       <div id="minerGenerateBtnContainer">
         <div id="minerGeneraterByCash" class="minerGenerateBtnContainer_inputContainer">
-          <label id="minerGeneraterByCash_amountLabel" class="minerGenerateBtnContainer_label">Lv1 채굴기 생성 (캐시)</label>
+          <label id="minerGeneraterByCash_amountLabel" class="minerGenerateBtnContainer_label">Lv1 창조자 소환 (◆)</label>
           <input type="number" inputmode="numeric" id="minerGeneraterByCash_amountInput"
-            class="minerGenerateBtnContainer_input" placeholder="수량 (개당 20캐시)">
-          <button id="minerGeneraterByCash_minerGenerateBtn" class="minerGenerateBtnContainer_btn">생성</button>
+            class="minerGenerateBtnContainer_input" placeholder="수량 (20◆)">
+          <button id="minerGeneraterByCash_minerGenerateBtn" class="minerGenerateBtnContainer_btn">소환</button>
 
         </div>
         <div id="minerGeneraterByCoin" class="minerGenerateBtnContainer_inputContainer">
-          <label id="minerGeneraterByCoin_amountLabel" class="minerGenerateBtnContainer_label">Lv1 채굴기 생성 (코인)</label>
+          <label id="minerGeneraterByCoin_amountLabel" class="minerGenerateBtnContainer_label">Lv1 창조자 소환 (◇)</label>
           <input type="number" inputmode="numeric" id="minerGeneraterByCoin_amountInput"
-            class="minerGenerateBtnContainer_input" placeholder="수량 (개당 4,0000코인)">
-          <button id="minerGeneraterByCoin_minerGenerateBtn" class="minerGenerateBtnContainer_btn">생성</button>
+            class="minerGenerateBtnContainer_input" placeholder="수량 (4,0000◇)">
+          <button id="minerGeneraterByCoin_minerGenerateBtn" class="minerGenerateBtnContainer_btn">소환</button>
 
         </div>
       </div>
@@ -113,7 +114,7 @@
         <button id="cashChargeBtn">충전</button>
         <div id="coinContainer"></div>
       </div>
-      <div id="minersPerformanceContainer">1일 채굴량: 1,000,000,000</div>
+      <div id="minersPerformanceContainer"></div>
     </div>
     <div id="out_profileModal" class="out_modal" style="display: none;"></div>
     <div id="profileModal" class="modal" style="display: none;">
@@ -138,13 +139,13 @@
         </div>
         <button id="leaveBtn">회원 탈퇴</button>
         <div id="profileModal_explanation">
-          &nbsp;<a href="https://cafe.naver.com/godofmining" target="_blank">공식카페</a>
+          &nbsp;<a href="https://cafe.naver.com/lilcreator" target="_blank">공식카페</a>
           <br>
           <br>
-          &nbsp;<a href="https://cafe.naver.com/godofmining/3" target="_blank">문의</a>
+          &nbsp;<a href="https://cafe.naver.com/lilcreator/3" target="_blank">문의</a>
           <br>
           <br>
-          &nbsp;<a href="https://cafe.naver.com/godofmining/2" target="_blank" id="tutorialLink">튜토리얼</a>
+          &nbsp;<a href="https://cafe.naver.com/lilcreator/2" target="_blank" id="tutorialLink">튜토리얼</a>
         </div>
       </div>
     </div>
@@ -156,7 +157,7 @@
       <div class="modal_contentContainer">
         <div id="sendLogList">
           <br>
-          선물 기록
+          워프 기록
         </div>
       </div>
     </div>
@@ -166,23 +167,23 @@
         <button class="modal_closeBtn">✖</button>
       </div>
       <div class="modal_contentContainer">
-        <div id="minerUpgradeModal_title">Lv1 채굴기 강화</div>
+        <div id="minerUpgradeModal_title">Lv1 창조자 진화</div>
         <div id="minerUpgradeModal_normalUpgradeContainer" class="minerUpgradeModal_upgradeContainer">
-          <label id="normalUpgradeContainer_label" class="minerUpgradeModal_bigLabel">일반 강화 (채굴기 1개 소모)</label>
-          <div id="normalUpgradeContainer_explanation" class="minerUpgradeModal_explanation">50% → 성공 / 50% → 실패(파괴)
+          <label id="normalUpgradeContainer_label" class="minerUpgradeModal_bigLabel">불완전 진화 (창조자 1기 필요)</label>
+          <div id="normalUpgradeContainer_explanation" class="minerUpgradeModal_explanation">50% → 성공 / 50% → 실패(소멸)
           </div>
           <label id="normalUpgradeContainer_amountLabel" class="minerUpgradeModal_smallLabel">수량</label>
           <input type="number" inputmode="numeric" id="normalUpgradeContainer_amountInput"
             class="minerUpgradeModal_input">
-          <button id="normalUpgradeContainer_upgradeBtn" class="minerUpgradeModal_btn">강화</button>
+          <button id="normalUpgradeContainer_upgradeBtn" class="minerUpgradeModal_btn">진화</button>
         </div>
         <div id="minerUpgradeModal_safeUpgradeContainer" class="minerUpgradeModal_upgradeContainer">
-          <label id="safeUpgradeContainer_label" class="minerUpgradeModal_bigLabel">안전 강화 (채굴기 2개 소모)</label>
+          <label id="safeUpgradeContainer_label" class="minerUpgradeModal_bigLabel">완전 진화 (창조자 2기 필요)</label>
           <div id="safeUpgradeContainer_explanation" class="minerUpgradeModal_explanation">100% → 성공</div>
           <label id="safeUpgradeContainer_amountLabel" class="minerUpgradeModal_smallLabel">수량</label>
           <input type="number" inputmode="numeric" id="safeUpgradeContainer_amountInput"
             class="minerUpgradeModal_input">
-          <button id="safeUpgradeContainer_minerUpgradeBtn" class="minerUpgradeModal_btn">강화</button>
+          <button id="safeUpgradeContainer_minerUpgradeBtn" class="minerUpgradeModal_btn">진화</button>
         </div>
       </div>
     </div>
@@ -192,17 +193,17 @@
         <button class="modal_closeBtn">✖</button>
       </div>
       <div class="modal_contentContainer">
-        <div id="minerSendModal_title">Lv1 채굴기 선물</div>
+        <div id="minerSendModal_title"></div>
         <div class="minerSendModal_inputContainer">
           <label id="minerSendModal_receiverLabel" class="minerSendModal_label">수령인</label>
-          <input type="text" id="minerSendModal_receiverInput" class="minerSendModal_input">
+          <input type="text" id="minerSendModal_receiverInput" class="minerSendModal_input" placeholder="닉네임">
         </div>
         <div class="minerSendModal_inputContainer">
           <label id="minerSendModal_amountLabel" class="minerSendModal_label">수량</label>
           <input type="number" inputmode="numeric" id="minerSendModal_amountInput" class="minerSendModal_input">
         </div>
-        <button id="minerSendBtn">선물</button>
-        <div id="minerSendModal_explanation">수수료: Lv1 채굴기 1개
+        <button id="minerSendBtn">워프</button>
+        <div id="minerSendModal_explanation">Lv1 창조자 1기가 폭발하며, 다른 차원으로 창조자를 이동시킵니다.
           <br>
           <br>
           &nbsp;잘못된 수령인 작성으로 인한 피해는 보상받을 수 없으니, 수령인의 닉네임을 정확히 입력해주시길 바랍니다.
@@ -220,7 +221,7 @@
     <div id="loadingModal" class="modal" style="display: none;">로딩 중.</div>
   </div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/scripts/home.js?version=0.0.9"></script>
+  <script src="/scripts/home.js?version=0.0.10"></script>
 </body>
 
 </html>

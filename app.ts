@@ -40,7 +40,12 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(morgan("dev"));
 }
-app.use(express.static(path.join(__dirname, "public"), { maxAge: 2592000000 }));
+app.use(
+  express.static(
+    path.join(__dirname, "public")
+    ,{ maxAge: 2592000000 }
+  )
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
