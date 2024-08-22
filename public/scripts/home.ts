@@ -110,9 +110,6 @@ const cashCoinContainer = gamePart.querySelector(
 const cashContainer = cashCoinContainer.querySelector(
   "#cashContainer"
 ) as HTMLDivElement;
-const cashChargeBtn = cashCoinContainer.querySelector(
-  "#cashChargeBtn"
-) as HTMLButtonElement;
 const coinContainer = cashCoinContainer.querySelector(
   "#coinContainer"
 ) as HTMLDivElement;
@@ -1022,12 +1019,6 @@ minerSendModalBtns.forEach((minerSendModalBtn) => {
 });
 minerGeneraterByCash_minerGenerateBtn.onclick = () => generateMiner("cash");
 minerGeneraterByCoin_minerGenerateBtn.onclick = () => generateMiner("coin");
-cashChargeBtn.onclick = () => {
-  alertByModal(
-    "현재 테스트 기간으로 ◆ 충전 불가"
-    // "충전 방법 안내\n\n카카오뱅크 3333-15-8380350(위대훈) 으로 입금하신 후, https://open.kakao.com/me/godofmining 로 아래와 같이 연락주시면 확인 후, 입금 금액만큼 ◆가 충전됩니다.\n\n내용: 본인 ID/예금주명/입금 금액"
-  );
-};
 
 profileModal_closeBtn.onclick = () => openOrCloseModal("profile", "close");
 profileModal_nickChangeBtn.onclick = changeNick;
