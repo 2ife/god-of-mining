@@ -198,8 +198,82 @@ const login: RequestHandler = async (req, res, next) => {
     }
     const loginCode = await bcrypt.hash(`${loginId}${Date.now()}`, 2);
     user.loginCode = loginCode;
-    await user.save();
-    res.json({ loginCode });
+    const currentDate = new Date();
+    const currentDateStr = getDateStr(currentDate);
+    let mine = false;
+    if (currentDateStr !== user.lastMineDate) {
+      user.coin += user.minersTotalPerformance;
+      user.lastMineDate = currentDateStr;
+      mine = true;
+    }
+    const userData = {
+      nick: user.nick,
+      loginId: user.loginId,
+      minersArray: user.minersArray,
+      minersTotalPerformance: user.minersTotalPerformance,
+      cash: user.cash,
+      coin: user.coin,
+    };
+    const oneWeekAgo_time = currentDate.getTime() - 86400000 * 7;
+    const oneWeekAgo =
+      oneWeekAgo_time > user.createdAt.getTime()
+        ? new Date(oneWeekAgo_time)
+        : user.createdAt;
+    const sendLogs = await SendLog.findAll({
+      where: {
+        [Op.or]: [
+          {
+            sender: user.nick,
+          },
+          {
+            receiver: user.nick,
+          },
+        ],
+        createdAt: {
+          [Op.gte]: oneWeekAgo,
+        },
+      },
+      order: [["createdAt", "DESC"]],
+    });
+    const sendLogsData = sendLogs.map((log) => {
+      return {
+        sender: log.sender,
+        receiver: log.receiver,
+        minerLevel: log.minerLevel,
+        minerAmounts: log.minerAmounts,
+        time: log.createdAt.getTime(),
+      };
+    });
+    const transaction = await sequelize.transaction();
+    try {
+      await user.save({ transaction });
+      if (mine) {
+        await SendLog.destroy({
+          where: {
+            [Op.or]: [{ sender: user.nick }, { receiver: user.nick }],
+            createdAt: {
+              [Op.lt]: oneWeekAgo,
+            },
+          },
+          transaction,
+        });
+      }
+      await transaction.commit();
+    } catch (err: any) {
+      await transaction.rollback();
+      const errorObj = {
+        place: "controllers-auth-checkLoginCode",
+        content: "checkLoginCode transaction error",
+        user: user.loginId,
+      };
+      throw new ReqError(errorObj, err.message);
+    }
+    res.json({
+      newLoginCode: loginCode,
+      userData,
+      sendLogsData,
+      mine,
+    });
   } catch (err: any) {
     if (!err.place) {
       err.place = "controllers-auth-login";

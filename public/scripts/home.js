@@ -274,7 +274,7 @@ const login = async (event) => {
         showLoading();
         const res = await axios.default.post("/auth/login", { loginId: id, password });
         const { data } = res;
-        const { answer, loginCode } = data;
+        const { answer } = data;
         if (answer === "error") {
             throw new Error();
         }
@@ -285,9 +285,17 @@ const login = async (event) => {
         else if (answer === "lock") {
             alertByModalByHTML("정지된 ID입니다!<br><br><a href='https://cafe.naver.com/godofmining/3'>정지 사유 문의</a>");
         }
-        if (loginCode) {
-            localStorage.setItem("LOGIN_CODE", loginCode);
-            location.reload();
+        const { newLoginCode, userData, sendLogsData, mine } = data;
+        localStorage.setItem("LOGIN_CODE", newLoginCode);
+        updateUserProfile(userData.nick, userData.loginId);
+        updateMiners(userData.minersArray, userData.minersTotalPerformance);
+        changeCoin(userData.coin);
+        changeCash(userData.cash);
+        getSendLogs(sendLogsData);
+        loginContainer.style.display = "none";
+        gamePart.style.display = "";
+        if (mine) {
+            alertByModal(`${user.minersTotalPerformance.toLocaleString("ko-KR")}◇ 획득!`);
         }
     }
     catch (err) {
