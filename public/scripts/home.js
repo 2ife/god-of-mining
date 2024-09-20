@@ -293,6 +293,7 @@ const login = async (event) => {
         changeCash(userData.cash);
         getSendLogs(sendLogsData);
         loginContainer.style.display = "none";
+        joinContainer.style.display = "none";
         gamePart.style.display = "";
         if (mine) {
             alertByModal(`${user.minersTotalPerformance.toLocaleString("ko-KR")}◇ 획득!`);

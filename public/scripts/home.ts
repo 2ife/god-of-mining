@@ -482,6 +482,7 @@ const login = async (event: MouseEvent) => {
     changeCash(userData.cash);
     getSendLogs(sendLogsData);
     loginContainer.style.display = "none";
+    joinContainer.style.display = "none";
     gamePart.style.display = "";
     if (mine) {
       alertByModal(
