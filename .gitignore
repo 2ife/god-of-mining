@@ -3,3 +3,5 @@ node_modules
 .env
 bannedIp.ts
 bannedIp.js
+manager.ts
+manager.js
