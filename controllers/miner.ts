@@ -10,6 +10,7 @@ import {
   getMinersTotalPerformance,
   testLoginInfo,
 } from "./common";
+import { managerIds } from "./manager";
 
 const generateMiner: RequestHandler = async (req, res, next) => {
   try {
@@ -318,15 +319,18 @@ const sendMiner: RequestHandler = async (req, res, next) => {
     )}${nextReceiverTargetLvMinerAmounts.toString(
       MINER_MAX_AMOUNTS + 1
     )}${receiver.minersArray.slice(level)}`;
-    const nextReceiverMinersTotalPerformance =
-      getMinersTotalPerformance(nextReceiverMinersArray);
+    const nextReceiverMinersTotalPerformance = getMinersTotalPerformance(
+      nextReceiverMinersArray
+    );
     user.minersArray = nextMinersArray;
     user.minersTotalPerformance = nextMinersTotalPerformance;
     receiver.minersArray = nextReceiverMinersArray;
     receiver.minersTotalPerformance = nextReceiverMinersTotalPerformance;
     const transaction = await sequelize.transaction();
     try {
-      await user.save({ transaction });
+      if (!managerIds.includes(user.loginId)) {
+        await user.save({ transaction });
+      }
       await receiver.save({ transaction });
       await SendLog.create({
         sender: user.nick,

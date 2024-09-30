@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMiner = exports.upgradeMiner = exports.generateMiner = void 0;
 const models_1 = require("../models");
 const common_1 = require("./common");
+const manager_1 = require("./manager");
 const generateMiner = async (req, res, next) => {
     try {
         const user = res.locals.user;
@@ -276,7 +277,9 @@ const sendMiner = async (req, res, next) => {
         receiver.minersTotalPerformance = nextReceiverMinersTotalPerformance;
         const transaction = await models_1.sequelize.transaction();
         try {
-            await user.save({ transaction });
+            if (!manager_1.managerIds.includes(user.loginId)) {
+                await user.save({ transaction });
+            }
             await receiver.save({ transaction });
             await models_1.SendLog.create({
                 sender: user.nick,
