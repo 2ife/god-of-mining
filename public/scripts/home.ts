@@ -235,7 +235,7 @@ const loadingModal = document.querySelector("#loadingModal") as HTMLDivElement;
 // variable
 const MINER_MAX_AMOUNTS = 32;
 const MINER_MAX_LEVEL = 20;
-const LV1_MINER_CASH = 20;
+const LV1_MINER_CASH = 1;
 const LV1_MINER_COIN = 4000;
 let loadInterval: any = null;
 let reload = false;
